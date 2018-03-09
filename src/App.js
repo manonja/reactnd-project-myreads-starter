@@ -1,6 +1,9 @@
 import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
+import BookShelf from './BookShel.js'
+import Book from './Book.js'
+
 
 class BooksApp extends React.Component {
   state = {
@@ -10,12 +13,32 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
+    // Empty array that will store books
+    books: [],
+
+    // bookShelf object representing the app structure of shelves
+    bookShelf: [
+        {
+            id: 'currentlyReading',
+            name: 'Currently Reading'
+        },
+        {
+            id: 'wantToRead',
+            name: 'Want to Read'
+
+        },
+        {
+            id: 'read',
+            name: 'Read'
+        }
+    ],
     showSearchPage: false
   }
 
   render() {
     return (
       <div className="app">
+      // If showSearchPage is true, show bookSearchPage
         {this.state.showSearchPage ? (
           <div className="search-books">
             <div className="search-books-bar">
@@ -37,6 +60,7 @@ class BooksApp extends React.Component {
               <ol className="books-grid"></ol>
             </div>
           </div>
+          // else: show the bookShelf
         ) : (
           <div className="list-books">
             <div className="list-books-title">
