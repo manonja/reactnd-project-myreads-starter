@@ -1,5 +1,5 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookShelf from './BookShelf.js'
 import Book from './Book.js'
@@ -42,7 +42,7 @@ class BooksApp extends React.Component {
       <div className="app">
       // If showSearchPage is true, show bookSearchPage
         {this.state.showSearchPage ? (
-            BookSearchBar
+            <BookSearchBar/>
           // else: show the bookShelf
         ) : (
           <div className="list-books">
@@ -53,22 +53,8 @@ class BooksApp extends React.Component {
 
             <div className="list-books-content">
               <div>
-
-              // BookShelf starts
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-             // Bookshelf ends
-
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-
-                      <Book/>
-
-                    </ol>
-                  </div>
-
-                </div>
-              </div>
+                <BookShelf/>
+              </div>      
             </div>
 
             <div className="open-search">
