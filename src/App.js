@@ -6,7 +6,6 @@ import Book from './Book.js'
 import BookSearchBar from './BookSearchBar.js'
 
 
-
 class BooksApp extends React.Component {
   state = {
     /**
@@ -15,11 +14,12 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    // Empty array that will store books
+
+    // Empty array that will store books called by the API
     books: [],
 
     // bookShelf object representing the app structure of shelves
-    bookShelf: [
+    shelves: [
         {
             id: 'currentlyReading',
             name: 'Currently Reading'
@@ -34,8 +34,25 @@ class BooksApp extends React.Component {
             name: 'Read'
         }
     ],
+
     showSearchPage: false
   }
+
+  //Adds life cycle event - Fetching infos from BooksApi.js
+  componentDidMount() {
+      BooksAPI.getAll().then((books) => {
+          this.setState({books})
+      })
+  }
+
+  updateShelves = (bookToUpdate, shelf) => {
+      this.setState(state => {
+          const updateState = state.books.filter( book => book.id !== bookToUpdate.id);
+          return {
+              books: [...updateState, {...bookToUpdate, shelf}]
+          };
+      });
+  };
 
   render() {
     return (
@@ -53,8 +70,19 @@ class BooksApp extends React.Component {
 
             <div className="list-books-content">
               <div>
-                <BookShelf/>
-              </div>      
+                //map over shelves
+                {this.state.shelves.map(shelf => (
+                    <BookShelf
+                        key={shelf.id}
+                        shelf={shelf}
+                        books={this.state.books.filter(b => {
+                            return b.shelf === shelf.id;
+                        })}
+                        updateShelves={this.updateShelves}
+                    />
+                ))}
+
+              </div>
             </div>
 
             <div className="open-search">
@@ -67,4 +95,4 @@ class BooksApp extends React.Component {
   }
 }
 
-export default BooksApp
+export default BooksApp;
