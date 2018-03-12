@@ -15,7 +15,7 @@ class Book extends React.Component {
                         style={{
                             width: 128,
                             height: 193,
-                            backgroundImage: `url( ${book.image.api} )`}}>
+                            backgroundImage: `url( ${book.imageLinks.thumbnail})`}}>
                       </div>
                       <div className="book-shelf-changer">
                         <select>
@@ -28,11 +28,12 @@ class Book extends React.Component {
                       </div>
                     </div>
                     <div className="book-title">{book.title}</div>
-                    <div className="book-authors">{book.author}</div>
+                    <div className="book-authors">{book.authors}</div>
                   </div>
                 </li>
         )
     }
 }
+
 
 export default Book;

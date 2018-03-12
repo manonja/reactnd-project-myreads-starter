@@ -45,6 +45,8 @@ class BooksApp extends React.Component {
       })
   }
 
+ 
+
   render() {
     return (
       <div className="app">
@@ -66,7 +68,6 @@ class BooksApp extends React.Component {
                         books={this.state.books.filter(b => {
                             return b.shelf === shelf.id;
                         })}
-                        updateShelves={this.updateShelves}
                     />
                 ))}
 
