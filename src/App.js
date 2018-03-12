@@ -45,24 +45,11 @@ class BooksApp extends React.Component {
       })
   }
 
-
-  updateShelves = (book, shelf) => {
-      this.setState(state => {
-          const updateState = state.books.filter( book => book.id !== bookToUpdate.id);
-          return {
-              books: [...updateState, {...book, shelf}]
-          };
-      });
-      BooksAPI.update(book, shelf)
-  };
-
   render() {
     return (
       <div className="app">
-      // If showSearchPage is true, show bookSearchPage
         {this.state.showSearchPage ? (
             <BookSearchBar/>
-          // else: show the bookShelf
         ) : (
           <div className="list-books">
 
@@ -72,7 +59,6 @@ class BooksApp extends React.Component {
 
             <div className="list-books-content">
               <div>
-                //map over shelves
                 {this.state.shelves.map(shelf => (
                     <BookShelf
                         key={shelf.id}

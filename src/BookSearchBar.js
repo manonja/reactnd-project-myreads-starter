@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 class BookSearchBar extends React.Component {
     render(){
@@ -28,4 +28,4 @@ class BookSearchBar extends React.Component {
 }
 
 
-export default BookSearchBar
+export default BookSearchBar;
