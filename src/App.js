@@ -79,7 +79,6 @@ class BooksApp extends React.Component {
                         moveBooks={this.moveBooks}
                     />
                 ))}
-
               </div>
             </div>
 

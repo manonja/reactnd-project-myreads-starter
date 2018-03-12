@@ -11,9 +11,9 @@ class Book extends React.Component {
 
   handleOnChange(e) {
     //update UI calling to app.js
-    this.props.moveBooks(book, e.target.value);
+    this.props.moveBooks(this.props.book, e.target.value);
     //update booksapi
-    BooksAPI.update(book, e.target.value);
+    BooksAPI.update(this.props.book, e.target.value);
 
   }
 
