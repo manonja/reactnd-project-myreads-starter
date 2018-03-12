@@ -18,7 +18,7 @@ class BooksApp extends React.Component {
     // Empty array that will store books called by the API
     books: [],
 
-    // bookShelf object representing the app structure 
+    // bookShelf object representing the app structure
     shelves: [
         {
             id: 'currentlyReading',
@@ -46,14 +46,13 @@ class BooksApp extends React.Component {
   }
 
 
-  updateShelves = (book, shelf) => {
+  moveBooks = (bookToMove, shelfValue) => {
       this.setState(state => {
-          const updateState = state.books.filter( book => book.id !== book.id);
+          const updateState = state.books.filter( book => book.id !== bookToMove.id);
           return {
-              books: [...updateState, {...book, shelf}]
+              books: [...updateState, {...bookToMove, shelfValue}]
           };
       });
-      BooksAPI.update(book, shelf)
   };
 
   render() {
@@ -77,7 +76,7 @@ class BooksApp extends React.Component {
                         books={this.state.books.filter(b => {
                             return b.shelf === shelf.id;
                         })}
-                        updateShelves={this.updateShelves}
+                        moveBooks={this.moveBooks}
                     />
                 ))}
 
