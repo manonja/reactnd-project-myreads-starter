@@ -45,6 +45,7 @@ class BooksApp extends React.Component {
       })
   }
 
+<<<<<<< HEAD
 
   moveBooks = (bookToMove, shelfValue) => {
       this.setState(state => {
@@ -54,6 +55,9 @@ class BooksApp extends React.Component {
           };
       });
   };
+=======
+ 
+>>>>>>> 4b31d2c6725a7a5dcc6305f49e79625fdccbd919
 
   render() {
     return (
@@ -76,7 +80,10 @@ class BooksApp extends React.Component {
                         books={this.state.books.filter(b => {
                             return b.shelf === shelf.id;
                         })}
+<<<<<<< HEAD
                         moveBooks={this.moveBooks}
+=======
+>>>>>>> 4b31d2c6725a7a5dcc6305f49e79625fdccbd919
                     />
                 ))}
               </div>

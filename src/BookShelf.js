@@ -16,7 +16,10 @@ class BookShelf extends React.Component{
                         <Book
                             book={book}
                             key={book.id}
+<<<<<<< HEAD
                             moveBooks={this.props.moveBooks}
+=======
+>>>>>>> 4b31d2c6725a7a5dcc6305f49e79625fdccbd919
                         />
                     ))}
                     </ol>
