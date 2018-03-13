@@ -5,6 +5,19 @@ import BookShelf from "./BookShelf";
 
 class BookSearchBar extends React.Component {
 
+    state = {
+        query: '',
+
+        bookList: [],
+
+        shef: [
+            {
+                id: 'results',
+                name: 'Search Result'
+            },
+        ]
+    }
+
     render(){
         return (
             <div className="search-books">
