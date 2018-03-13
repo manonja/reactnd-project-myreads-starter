@@ -2,19 +2,6 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 
 class Book extends React.Component {
-    // Handle event Source: react doc "https://reactjs.org/docs/handling-events.html"
-    constructor(props) {
-    super(props);
-    // This binding is necessary to make `this` work in the callback
-    this.handleEvent=this.handleEvent.bind(this);
-  }
-
-  handleEvent(event) {
-    //update UI calling app.js
-    this.props.moveBooks(this.props.book, event.target.value);
-    //update booksapi
-    BooksAPI.update(this.props.book, event.target.value);
-  }
 
     render(){
         const book=this.props.book;
@@ -30,7 +17,7 @@ class Book extends React.Component {
                             backgroundImage: `url(${book.imageLinks.thumbnail})`}}>
                       </div>
                       <div className="book-shelf-changer">
-                        <select defaultValue={book.shelf} onChange={this.handleEvent}>
+                        <select onChange={(event) => this.props.moveBooks(this.props.book, event.target.value)} defaultValue={ this.props.book.shelf }>
                           <option value="none" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>

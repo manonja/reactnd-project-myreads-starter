@@ -35,7 +35,7 @@ class BooksApp extends React.Component {
     ],
 
     showSearchPage: false
-  }
+};
 
   //Adds life cycle event - Fetching infos from BooksApi.js
   componentDidMount() {
@@ -43,7 +43,7 @@ class BooksApp extends React.Component {
           this.setState({ books })
       })
   }
-  
+
 
     moveBooks = (bookToMove, shelfValue) => {
         this.setState(state => {
@@ -54,6 +54,7 @@ class BooksApp extends React.Component {
               books: newShelf.concat([ ...bookToMove, shelfValue])
           };
         });
+        BooksAPI.update(bookToMove, shelfValue);
     };
 
   render() {
