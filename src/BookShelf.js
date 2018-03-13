@@ -15,6 +15,7 @@ class BookShelf extends React.Component{
                     {books.map(book => (
                         <Book
                             book={book}
+                            shelf={shelf}
                             key={book.id}
                             moveBooks={this.props.moveBooks}
                         />
