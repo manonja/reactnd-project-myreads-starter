@@ -58,8 +58,8 @@ class BooksApp extends React.Component {
            books: newShelf.concat(bookToMove)
        };
      });
+     //Update the database
      BooksAPI.update(bookToMove, shelfValue);
-
  };
     // moveBooks = (bookToMove, shelfValue) => {
     //     this.setState(state => {
