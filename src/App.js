@@ -8,7 +8,7 @@ import SearchBar from './SearchBar.js'
 
 
 class BooksApp extends React.Component {
-  state = {
+  state={
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -46,11 +46,11 @@ class BooksApp extends React.Component {
       })
   }
 
-  moveBooks = (bookToMove, shelfValue) => {
+  moveBooks=(bookToMove, shelfValue) => {
 
      this.setState(state => {
          //Filter the selected book
-         const newShelf = state.books.filter(book => book.id !== bookToMove.id);
+         const newShelf=state.books.filter(book => book.id !== bookToMove.id);
          // Update shelf value
          bookToMove.shelf = shelfValue
 
@@ -68,8 +68,8 @@ class BooksApp extends React.Component {
 
         <Route
             path='/search'
-            render= {() => (
-                 <BookSearchBar moveBooks={this.moveBooks}/>
+            render={() => (
+                 <SearchBar moveBooks={this.moveBooks}/>
             )}
         />
 
