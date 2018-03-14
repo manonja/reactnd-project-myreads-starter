@@ -1,11 +1,10 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
-import BookSearchBar from './BookSearchBar.js'
 
 
 class Book extends React.Component {
 
-    //Source of code: https://reactjs.org/docs/handling-events.html
+    //handleEvent function - Source: https://reactjs.org/docs/handling-events.html
 
     constructor(props) {
     super(props);
@@ -16,7 +15,7 @@ class Book extends React.Component {
   handleEvent(e) {
     this.props.moveBooks(this.props.book, e.target.value);
   }
-  
+
     render(){
         const book=this.props.book;
 
@@ -31,7 +30,7 @@ class Book extends React.Component {
                             backgroundImage: `url(${book.imageLinks.thumbnail})`}}>
                       </div>
                       <div className="book-shelf-changer">
-                        <select onChange={this.handleEvent} defaultValue={ this.props.book.shelf }>
+                        <select onChange={this.handleEvent} defaultValue={ this.props.book.shelf}>
                           <option value="none" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
