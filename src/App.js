@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookShelf from './BookShelf'
-import BookSearchBar from './BookSearchBar.js'
+import SearchBar from './SearchBar.js'
 
 
 class BooksApp extends React.Component {
@@ -74,7 +74,7 @@ class BooksApp extends React.Component {
         />
 
         <Route
-            exact path='/' 
+            exact path='/'
             render={() => (
 
                 <div className="list-books">

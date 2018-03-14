@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from "./Book";
 
-class BookSearchBar extends React.Component {
+class SearchBar extends React.Component {
 
     state = {
         query: '',
@@ -75,4 +75,4 @@ class BookSearchBar extends React.Component {
 }
 
 
-export default BookSearchBar;
+export default SearchBar;
