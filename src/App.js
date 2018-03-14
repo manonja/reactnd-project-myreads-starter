@@ -74,7 +74,6 @@ class BooksApp extends React.Component {
         <Route
             exact path='/'
             render={() => (
-
                 <div className="list-books">
                   <div className="list-books-title">
                     <h1>MyReads</h1>
@@ -97,16 +96,13 @@ class BooksApp extends React.Component {
                       to="/search">Add a book</Link>
                   </div>
                 </div>
-              )}
+               )}
               />
-
-          }
-
-      </div>
+            }
+        </div>
     )
   }
 }
 
-// <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
 
 export default BooksApp;

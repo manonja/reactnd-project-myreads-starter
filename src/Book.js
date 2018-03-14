@@ -3,7 +3,6 @@ import React from 'react'
 class Book extends React.Component {
 
     //handleEvent function - Source: https://reactjs.org/docs/handling-events.html
-
     constructor(props) {
     super(props);
     // This binding is necessary to make `this` work in the callback
