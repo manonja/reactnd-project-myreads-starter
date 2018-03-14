@@ -9,17 +9,10 @@ import SearchBar from './SearchBar.js'
 
 class BooksApp extends React.Component {
   state={
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-
-    // Empty array that will store books called by the API
+    //Empty array that will store the books being called by the BooksAPI.getAll()
     books: [],
 
-    // bookShelf object representing the app structure
+    //BookShelf object representing the app structure
     shelves: [
         {
             id: 'currentlyReading',
@@ -37,23 +30,29 @@ class BooksApp extends React.Component {
     ],
 
     showSearchPage: false
-};
+}
 
-  //Adds life cycle event - Fetching infos from BooksApi.js
+  //Adds life cycle event - Fetching infos from BooksApi.js to retrieve books
   componentDidMount() {
       BooksAPI.getAll().then((books) => {
           this.setState({ books })
       })
   }
 
+  /**
+   * Move books from shelves
+   * @param {object} bookToMove - The book.id to move to another shelf
+   * @param {object} shelfValue - The shelf 's target value where the book needs to move to.
+   * @returns {array} - new array with the new value of state.books
+  */
   moveBooks=(bookToMove, shelfValue) => {
 
      this.setState(state => {
-         //Filter the selected book
+         //Filter the selected book within books array
          const newShelf=state.books.filter(book => book.id !== bookToMove.id);
-         // Update shelf value
+         //Update shelf value
          bookToMove.shelf = shelfValue
-
+         //Returns a new array with new book and shelf values
          return {
            books: newShelf.concat(bookToMove)
        };
@@ -65,7 +64,6 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-
         <Route
             path='/search'
             render={() => (
