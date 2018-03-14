@@ -44,8 +44,6 @@ class BooksApp extends React.Component {
       })
   }
 
-
-
   moveBooks = (bookToMove, shelfValue) => {
 
      this.setState(state => {
@@ -61,17 +59,6 @@ class BooksApp extends React.Component {
      //Update the database
      BooksAPI.update(bookToMove, shelfValue);
  };
-    // moveBooks = (bookToMove, shelfValue) => {
-    //     this.setState(state => {
-    //         //Filter the selected book
-    //         const newShelf = state.books.filter(book => book.id !== bookToMove.id);
-    //         //Return a new array without the selected books
-    //         return {
-    //           books: newShelf.concat([ ...bookToMove, shelfValue])
-    //       };
-    //     });
-    //     BooksAPI.update(bookToMove, shelfValue);
-    // };
 
   render() {
     return (
