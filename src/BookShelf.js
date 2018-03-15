@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 class BookShelf extends React.Component{
 
     render() {
-        const shelf = this.props.shelf
-        const books = this.props.books
+        const {shelf, books} = this.props
+    
         return (
               <div className="bookshelf">
                 <h2 className="bookshelf-title">{shelf.name}</h2>

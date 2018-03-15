@@ -15,7 +15,7 @@ class Book extends React.Component {
   }
 
     render(){
-        const book=this.props.book;
+        const {book}=this.props
 
         return(
                 <li>
