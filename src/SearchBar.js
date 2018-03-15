@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from "./Book";
+import PropTypes from 'prop-types'
+
 
 class SearchBar extends React.Component {
 
@@ -11,7 +13,7 @@ class SearchBar extends React.Component {
     };
 
     newQuery = (query) => {
-        this.setState({ query: query })
+        this.setState({ query })
 
         //Check if there is a query
         query ?
@@ -20,13 +22,13 @@ class SearchBar extends React.Component {
                     this.setState({books});
                 }
             })
+            //If there is not query, set books to empty
             :
             this.setState({books:[]});
     };
 
     render(){
-        const query = this.state.query;
-        const books = this.state.books;
+        const {query, books} = this.state
 
         return (
             <div className="search-books">
@@ -46,33 +48,35 @@ class SearchBar extends React.Component {
                     you don't find a specific author or title. Every search is limited by search terms.
                   */}
                   <input
-                   type="text"
-                   value={query}
-                   onChange={(event) => this.newQuery(event.target.value)}
-                   placeholder="Search by title or author" />
-
+                     type="text"
+                     value={query}
+                     onChange={(event) => this.newQuery(event.target.value)}
+                     placeholder="Search by title or author"
+                  />
                 </div>
               </div>
                {books.length > 0 && (
-                    <div className="search-books-results">
-                        <ol className="books-grid">
-                        {
-                            //map though books and render Book component
-                            books.map((book) => (
-                   				     <Book
-                                        key={book.id}
-                   				        book={book}
-                                        moveBooks={this.props.moveBooks}
-                                     />
-                            ))}
-                        </ol>
-                    </div>
+                <div className="search-books-results">
+                    <ol className="books-grid">
+                    {books.map((book) => (
+       				     <Book
+                            key={book.id}
+       				        book={book}
+                            moveBooks={this.props.moveBooks}
+                         />
+                      ))}
+                    </ol>
+                </div>
                )}
-
             </div>
         );
     }
 }
 
+SearchBar.PropTypes = {
+    query: PropTypes.string.isRequired,
+    books: PropTypes.array.isRequired,
+    moveBooks: PropTypes.func.isRequired
+}
 
 export default SearchBar;

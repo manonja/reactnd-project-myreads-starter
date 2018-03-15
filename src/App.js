@@ -79,8 +79,8 @@ class BooksApp extends React.Component {
                     <h1>MyReads</h1>
                   </div>
                   <div className="list-books-content">
-                      {
-                          this.state.shelves.map((shelf) => (
+                      {//Map over shelves state and render BookShelf component
+                        this.state.shelves.map((shelf) => (
                           <BookShelf
                               shelf={shelf}
                               key={shelf.id}
@@ -89,11 +89,9 @@ class BooksApp extends React.Component {
                           />
                         ))
                       }
-                    </div>
-
+                  </div>
                   <div className="open-search">
-                  <Link
-                      to="/search">Add a book</Link>
+                    <Link to="/search">Add a book</Link>
                   </div>
                 </div>
                )}
@@ -103,6 +101,5 @@ class BooksApp extends React.Component {
     )
   }
 }
-
 
 export default BooksApp;
