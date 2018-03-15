@@ -6,9 +6,9 @@ MyReads project is a bookshelf app that allows you to select and categorize book
 
 The main page displays a list of "shelves" (i.e. categories), each of which contains a number of books. The three shelves are:
 
-    - Currently Reading
-    - Want to Read
-    - Read
+1. Currently reading
+2. Want to read
+3. Read
 
 Each book has a control that lets you select the shelf for that book. When you select a different shelf, the book moves there. Note that the default value for the control should always be the current shelf the book is in.
 
@@ -20,10 +20,10 @@ The search page has a text input that may be used to find books. As the value of
 
 To get started:
 
-    - Clone/Download the repo
-    - cd into the project root
-    - run `npm install`
-    - run `npm start`
+1. Clone/Download the repo
+2. cd into the project root
+3. run `npm install`
+4. run `npm start`
 
 You should see `localhost:3000` opening in your browser.
 
