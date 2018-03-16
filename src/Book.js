@@ -3,19 +3,24 @@ import PropTypes from 'prop-types'
 
 class Book extends React.Component {
 
-    //handleEvent function - Source: https://reactjs.org/docs/handling-events.html
-    constructor(props) {
-    super(props);
-    // This binding is necessary to make `this` work in the callback
-    this.handleEvent= this.handleEvent.bind(this);
+    //Create a state so we can update book-value and shelf-value in BookShelf and SearchBar
+    state = {
+        book: this.props.book,
+        //Check if books are already in our shelves, if not, set it to 'none'
+        shelfValue: (this.props.book.shelf)?(this.props.book.shelf):'none'
+    }
+
+
+  handleChange = (e) => {
+      this.setState({
+        shelfValue:e.target.value
+      })
+    this.props.moveBooks(this.state.book, e.target.value)
   }
 
-  handleEvent(e) {
-    this.props.moveBooks(this.props.book, e.target.value);
-  }
 
     render(){
-        const {book}=this.props
+        const {book}=this.state
 
         return(
                 <li>
@@ -28,7 +33,7 @@ class Book extends React.Component {
                             backgroundImage: `url(${book.imageLinks.thumbnail})`}}>
                       </div>
                       <div className="book-shelf-changer">
-                        <select onChange={this.handleEvent} defaultValue={this.props.book.shelf}>
+                        <select value={this.state.shelfValue} onChange={this.handleChange}>
                           <option value="none" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
