@@ -9,19 +9,26 @@ class SearchBar extends React.Component {
 
     state = {
         query: '',
-        searchResult: []
+        searchResults: []
     };
 
     newQuery = (event) => {
-        event.preventDefault();
-        this.setState({ query: event.target.value })
-        this.props.bookList(this.state.query);
-}
+        //Check if there is a value in query
+        if (event.target.value !== '') {
+            this.setState({ query: event.target.value})
+            // Execute the API search
+            BooksAPI.search(this.state.query).then(searchResults => {
+                this.setState({ searchResults })
+            })
+        } else {
+            //If search bar is empty, returns empty array
+            this.setState( {searchResults: [] })
+        }
+    }
 
 
     render(){
-        const {books} = this.props
-
+        
         return (
             <div className="search-books">
               <div className="search-books-bar">
@@ -37,8 +44,7 @@ class SearchBar extends React.Component {
                   */}
                   <input
                      type="text"
-                     value={this.state.query}
-                     onChange={this.newQuery}
+                     onChange={this.newQuery.bind(this)}
                      placeholder="Search by title or author"
                   />
                 </div>
@@ -46,7 +52,7 @@ class SearchBar extends React.Component {
 
                 <div className="search-books-results">
                     <ol className="books-grid">
-                    {books.map((book) => (
+                    {this.state.searchResults.map((book) => (
                         <Book
                             book={book}
                             key={book.id}
