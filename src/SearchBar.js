@@ -1,34 +1,25 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
 import Book from "./Book";
 import PropTypes from 'prop-types'
+
 
 
 class SearchBar extends React.Component {
 
     state = {
         query: '',
-        books: []
     };
 
-    newQuery = (query) => {
-        this.setState({ query })
+    newQuery = (event) => {
+        event.preventDefault();
+        this.setState({ query: event.target.value })
+        this.props.bookList(this.state.query);
+}
 
-        //Check if there is a query
-        query ?
-            BooksAPI.search(query).then(books => {
-                if (books.length) {
-                    this.setState({books});
-                }
-            })
-            //If there is not query, set books to empty
-            :
-            this.setState({books:[]});
-    };
 
     render(){
-        const {query, books} = this.state
+        const {books} = this.props
 
         return (
             <div className="search-books">
@@ -45,25 +36,25 @@ class SearchBar extends React.Component {
                   */}
                   <input
                      type="text"
-                     value={query}
-                     onChange={(event) => this.newQuery(event.target.value)}
+                     value={this.state.query}
+                     onChange={this.newQuery}
                      placeholder="Search by title or author"
                   />
                 </div>
               </div>
-               {books.length > 0 && (
+
                 <div className="search-books-results">
                     <ol className="books-grid">
                     {books.map((book) => (
-       				     <Book
+                        <Book
+                            book={book}
                             key={book.id}
-       				        book={book}
                             moveBooks={this.props.moveBooks}
-                         />
-                      ))}
+                        />
+                    ))}
                     </ol>
                 </div>
-               )}
+
             </div>
         );
     }
