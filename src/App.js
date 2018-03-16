@@ -35,15 +35,7 @@ class BooksApp extends React.Component {
       });
   };
 
-  /**
-   * Passing a value, search the corresponding value in API, search results updated
-   * @param {string} query - new query to be checked for a new search
-   * @returns {object} - new object with the books search results
-  */
 
-  bookList = (query) => {
-    BooksAPI.search(query).then(books => this.setState({search:books}))
-  }
 
   render() {
 
