@@ -27,12 +27,18 @@ class BooksApp extends React.Component {
    * @returns {array} - new array with the new value of state.books
   */
 
-  moveBooks = (book, shelf) => {
-      BooksAPI.update(book, shelf).then(() => {
-          BooksAPI.getAll().then(books => {
-              this.setState({ books });
-          });
+  moveBooks = (bookToMove, shelfValue) => {
+      this.setState(state => {
+          //Filter the selected book within books array
+          const newShelf = state.books.filter(book => book.id !== bookToMove.id);
+          //Update shelf value
+          bookToMove.shelf = shelfValue
+          //Returns a new array with new book and shelf values
+          return {
+              books: newShelf.concat(bookToMove)
+          }
       });
+       BooksAPI.update(bookToMove, shelfValue);
   };
 
 
