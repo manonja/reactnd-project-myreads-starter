@@ -18,7 +18,7 @@ class Book extends React.Component {
     this.props.moveBooks(this.state.book, e.target.value)
   }
 
-  //Error handling in case book does not have thumbnail
+  //Error handling in case book doesn't have thumbnails
   handleThumbnail = (book) => {
       //Check if book have thumbnail
   if (book.imageLinks == null) {
@@ -28,6 +28,17 @@ class Book extends React.Component {
     return book.imageLinks.thumbnail
   }
 }
+
+    //Error handling in case book doesn't have authors
+    handleAuthor = (book) => {
+        //Check if book have author
+    if (book.authors == null) {
+      return "N/A"
+    }
+    else {
+      return book.authors[0]
+    }
+    }
 
 
     render(){
@@ -41,7 +52,7 @@ class Book extends React.Component {
                         style={{
                             width: 128,
                             height: 193,
-                            backgroundImage: `url(${this.handleThumbnail(this.props.book)})`}}>
+                            backgroundImage: `url(${this.handleThumbnail(this.state.book)})`}}>
                       </div>
                       <div className="book-shelf-changer">
                         <select value={this.state.shelfValue} onChange={this.handleChange}>
@@ -54,7 +65,7 @@ class Book extends React.Component {
                       </div>
                     </div>
                     <div className="book-title">{book.title}</div>
-                    <div className="book-authors">{book.authors}</div>
+                    <div className="book-authors">{this.handleAuthor(this.state.book)}</div>
                   </div>
                 </li>
         )
