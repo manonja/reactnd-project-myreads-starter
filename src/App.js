@@ -10,7 +10,6 @@ class BooksApp extends React.Component {
   state={
     //Empty array that will store the books being called by the BooksAPI.getAll()
     books: [],
-    search:[],
 }
 
   //Adds life cycle event - Fetching infos from BooksApi.js to retrieve books
