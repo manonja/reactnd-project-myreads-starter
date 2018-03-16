@@ -9,6 +9,7 @@ class SearchBar extends React.Component {
 
     state = {
         query: '',
+        searchResult: []
     };
 
     newQuery = (event) => {
