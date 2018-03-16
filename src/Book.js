@@ -1,48 +1,58 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import * as BooksAPI from './BooksAPI'
+
 
 class Book extends React.Component {
+    //handleEvent function - Source: https://reactjs.org/docs/handling-events.html
+    constructor(props) {
+    super(props);
 
-    //Create a state so we can update book-value and shelf-value in BookShelf and SearchBar
-    state = {
-        book: this.props.book,
-        //Check if books are already in our shelves, if not, set it to 'none'
-        shelfValue: (this.props.book.shelf)?(this.props.book.shelf):'none'
-    }
-
+    // This binding is necessary to make `this` work in the callback
+    this.handleChange = this.handleChange.bind(this);
+  }
 
   handleChange = (e) => {
-      this.setState({
-        shelfValue:e.target.value
-      })
-    this.props.moveBooks(this.state.book, e.target.value)
+    // Update UI with book's new shelf value
+    this.props.moveBooks(this.props.book, e.target.value)
+    // Update backend data
+    BooksAPI.update(this.props.book, e.target.value)
   }
+
+  // //Premark shelves on search page
+  // setShelf = (searchResult) => {
+  //     const defaultValue = 'None'
+  //     if (searchResult.shelf === undefined){
+  //         const filtered = searchResult.filter(book => book.id === searchResult.id)
+  //         return filtered.shelf
+  //     } else {
+  //         return searchResult.shelf
+  //     }
+  //
+  // }
 
   //Error handling in case book doesn't have thumbnails
   handleThumbnail = (book) => {
       //Check if book have thumbnail
   if (book.imageLinks == null) {
     return "http://bdfjade.com/data/out/81/5870933-unicorn-wallpaper.png"
-  }
-  else {
-    return book.imageLinks.thumbnail
+  } else {
+      return book.imageLinks.thumbnail
   }
 }
 
-    //Error handling in case book doesn't have authors
-    handleAuthor = (book) => {
-        //Check if book have author
-    if (book.authors == null) {
-      return "N/A"
-    }
-    else {
+  //Error handling in case book doesn't have authors
+  handleAuthor = (book) => {
+      //Check if book have author
+  if (book.authors == null) {
+     return "N/A"
+  } else {
       return book.authors[0]
     }
-    }
-
+ }
 
     render(){
-        const {book}=this.state
+        const {book}=this.props
 
         return(
                 <li>
@@ -52,10 +62,10 @@ class Book extends React.Component {
                         style={{
                             width: 128,
                             height: 193,
-                            backgroundImage: `url(${this.handleThumbnail(this.state.book)})`}}>
+                            backgroundImage: `url(${this.handleThumbnail(book)})`}}>
                       </div>
                       <div className="book-shelf-changer">
-                        <select value={this.state.shelfValue} onChange={this.handleChange}>
+                        <select defaultValue={book.shelf} onChange={this.handleChange}>
                           <option value="none" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
@@ -65,7 +75,7 @@ class Book extends React.Component {
                       </div>
                     </div>
                     <div className="book-title">{book.title}</div>
-                    <div className="book-authors">{this.handleAuthor(this.state.book)}</div>
+                    <div className="book-authors">{this.handleAuthor(book)}</div>
                   </div>
                 </li>
         )

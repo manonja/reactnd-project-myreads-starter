@@ -1,34 +1,35 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Book from "./Book";
+import Book from "./Book"
 import PropTypes from 'prop-types'
-
-
+import * as BooksAPI from './BooksAPI'
 
 class SearchBar extends React.Component {
 
     state = {
         query: '',
-        searchResults: []
+        books: []
     };
 
-    newQuery = (event) => {
-        //Check if there is a value in query
-        if (event.target.value !== '') {
-            this.setState({ query: event.target.value})
-            // Execute the API search
-            BooksAPI.search(this.state.query).then(searchResults => {
-                this.setState({ searchResults })
-            })
-        } else {
-            //If search bar is empty, returns empty array
-            this.setState( {searchResults: [] })
-        }
-    }
+
+    newQuery = (query) => {
+        this.setState({ query })
+        //Check if there is a query
+       query ?
+           BooksAPI.search(query).then(books => {
+               if (books.length) {
+                   this.setState({books});
+               }
+           })
+           //If there is not query, set books to empty
+           :
+           this.setState({books:[]});
+   };
 
 
     render(){
-        
+        const {books} = this.state;
+
         return (
             <div className="search-books">
               <div className="search-books-bar">
@@ -44,7 +45,7 @@ class SearchBar extends React.Component {
                   */}
                   <input
                      type="text"
-                     onChange={this.newQuery.bind(this)}
+                     onChange={(event) => this.newQuery(event.target.value)}
                      placeholder="Search by title or author"
                   />
                 </div>
@@ -52,7 +53,7 @@ class SearchBar extends React.Component {
 
                 <div className="search-books-results">
                     <ol className="books-grid">
-                    {this.state.searchResults.map((book) => (
+                    {books.map((book) => (
                         <Book
                             book={book}
                             key={book.id}

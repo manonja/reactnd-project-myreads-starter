@@ -40,7 +40,7 @@ class BookList extends React.Component {
     }
 }
 
-SearchBar.PropTypes = {
+BookList.PropTypes = {
     books: PropTypes.array.isRequired,
     moveBooks: PropTypes.func.isRequired
 }
