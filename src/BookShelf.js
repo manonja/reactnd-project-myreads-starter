@@ -5,17 +5,16 @@ import PropTypes from 'prop-types'
 class BookShelf extends React.Component{
 
     render() {
-        const {shelf, books} = this.props
-    
+        const {books} = this.props
+
         return (
               <div className="bookshelf">
-                <h2 className="bookshelf-title">{shelf.name}</h2>
+                <h2 className="bookshelf-title">{this.props.title}</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-                        {books.map(book => (
+                        {books.map((book) => (
                             <Book
                                 book={book}
-                                shelf={shelf}
                                 key={book.id}
                                 moveBooks={this.props.moveBooks}
                             />
