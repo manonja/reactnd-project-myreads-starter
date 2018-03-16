@@ -18,6 +18,17 @@ class Book extends React.Component {
     this.props.moveBooks(this.state.book, e.target.value)
   }
 
+  //Error handling in case book does not have thumbnail
+  handleThumbnail = (book) => {
+      //Check if book have thumbnail
+  if (book.imageLinks == null) {
+    return "http://bdfjade.com/data/out/81/5870933-unicorn-wallpaper.png"
+  }
+  else {
+    return book.imageLinks.thumbnail
+  }
+}
+
 
     render(){
         const {book}=this.state
@@ -30,7 +41,7 @@ class Book extends React.Component {
                         style={{
                             width: 128,
                             height: 193,
-                            backgroundImage: `url(${book.imageLinks.thumbnail})`}}>
+                            backgroundImage: `url(${this.handleThumbnail(this.props.book)})`}}>
                       </div>
                       <div className="book-shelf-changer">
                         <select value={this.state.shelfValue} onChange={this.handleChange}>
