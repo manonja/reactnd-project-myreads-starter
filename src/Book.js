@@ -19,17 +19,6 @@ class Book extends React.Component {
     BooksAPI.update(this.props.book, e.target.value)
   }
 
-  handleBookResult = (bookResult) => {
-      console.log(this.props.myBooks)
-      const matched = Object.keys(bookResult).map(book => bookResult.id === this.props.myBooks);
-      console.log(matched)
-  }
-
-
-
-
-
-
   //Error handling in case book doesn't have thumbnails
   handleThumbnail = (book) => {
       //Check if book have thumbnail
@@ -52,7 +41,6 @@ class Book extends React.Component {
 
     render(){
         const {book}=this.props
-        const {myBooks}=this.props
 
         return(
                 <li>
@@ -65,7 +53,7 @@ class Book extends React.Component {
                             backgroundImage: `url(${this.handleThumbnail(book)})`}}>
                       </div>
                       <div className="book-shelf-changer">
-                        <select defaultValue={this.handleBookResult(book)} onChange={this.handleChange}>
+                        <select defaultValue={this.props.book.shelf} onChange={this.handleChange}>
                           <option value="none" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
