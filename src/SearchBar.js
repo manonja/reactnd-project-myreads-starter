@@ -16,16 +16,16 @@ class SearchBar extends React.Component {
     handleBookResult = () => {
         const {query} = this.state
         const {searchResults} = this.state
-        //No query or invalid query
+        //If the query is invalid, ask the user to do a new research
         if( !searchResults.length){
             return (
                 <div>
                     <strong>
-                        Please enter a query
+                        Do another research
                     </strong>
                 </div>
             )
-        //Show the results
+        //If the query is valid, map over searchResults and render the results
         } else {
             return (
                 searchResults.map((book) => (
@@ -39,7 +39,8 @@ class SearchBar extends React.Component {
         }
     }
 
-    //Function checking is there is a query and if so calling Books API to update books
+    //Check if there is a query. If so, check if books from search exist in books
+    //from main. If
     newQuery = (query) => {
         //Check if there is a query
        if (query) {
@@ -48,9 +49,13 @@ class SearchBar extends React.Component {
                    this.setState({searchResults:[]});
 
                } else {
-                   //set the shelf
+                   //map over the results we got from the query
                    let newList = results.map((book) => {
+                   //set the shelf value to "none"
                    book.shelf = "none"
+                   //loop over this.props.books in main. If the book id from the result
+                   //is the same as the book id from this.props.books in main,
+                   //then set shelf value to the book id in the search results
                    for(let i=0; i < this.props.books.length ; i++) {
                        if(book.id === this.props.books[i].id) {
                            book.shelf = this.props.books[i].shelf
@@ -59,6 +64,7 @@ class SearchBar extends React.Component {
                    }
                return book
            })
+               //update searchResults after checking for shelves values
                this.setState({searchResults: newList})
            }
 
@@ -68,7 +74,7 @@ class SearchBar extends React.Component {
 
 
 
-   //Update each state
+   //Update each state so we can render update results in search
    updateQuery = (query) => {
        this.setState({query:query})
        this.newQuery(query)
@@ -112,10 +118,10 @@ class SearchBar extends React.Component {
     }
 }
 
-// SearchBar.PropTypes = {
-//     query: PropTypes..isRequired,
-//     searchResults: PropTypes.array.isRequired,
-//     moveBooks: PropTypes.func.isRequired
-// }
+SearchBar.PropTypes = {
+    query: PropTypes.string.isRequired,
+    searchResults: PropTypes.array.isRequired,
+    moveBooks: PropTypes.func.isRequired
+}
 
 export default SearchBar;
