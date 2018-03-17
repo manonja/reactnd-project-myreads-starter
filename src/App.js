@@ -41,11 +41,6 @@ class BooksApp extends React.Component {
        BooksAPI.update(bookToMove, shelfValue);
   };
 
-
-
-
-
-
   render() {
 
     return (
@@ -53,7 +48,7 @@ class BooksApp extends React.Component {
         <Route
             path='/search'
             render={() => (
-                 <SearchBar temp_list={this.state.books} moveBooks={this.moveBooks}/>
+                 <SearchBar books={this.state.books} moveBooks={this.moveBooks}/>
             )}
         />
 

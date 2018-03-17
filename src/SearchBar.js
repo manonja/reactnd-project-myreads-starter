@@ -2,7 +2,7 @@ import React from 'react'
 import { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Book from "./Book"
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 
 class SearchBar extends React.Component {
