@@ -9,13 +9,13 @@ import { Route } from 'react-router-dom'
 class BooksApp extends React.Component {
   state={
     //Empty array that will store the books being called by the BooksAPI.getAll()
-    myBooks: [],
+    books: [],
 }
 
   //Adds life cycle event - Fetching infos from BooksApi.js to retrieve books
   componentDidMount() {
-      BooksAPI.getAll().then(myBooks => {
-          this.setState({ myBooks })
+      BooksAPI.getAll().then(books => {
+          this.setState({ books })
       })
   }
 
@@ -29,12 +29,12 @@ class BooksApp extends React.Component {
   moveBooks = (bookToMove, shelfValue) => {
       this.setState(state => {
           //Filter the selected book within books array
-          const newShelf = state.myBooks.filter(book => book.id !== bookToMove.id);
+          const newShelf = state.books.filter(book => book.id !== bookToMove.id);
           //Update shelf value
           bookToMove.shelf = shelfValue
           //Returns a new array with new book and shelf values
           return {
-              myBooks: newShelf.concat(bookToMove)
+              books: newShelf.concat(bookToMove)
           }
       });
        BooksAPI.update(bookToMove, shelfValue);
@@ -49,14 +49,14 @@ class BooksApp extends React.Component {
         <Route
             path='/search'
             render={() => (
-                 <SearchBar myBooks={this.state.myBooks} moveBooks={this.moveBooks}/>
+                 <SearchBar books={this.state.books} moveBooks={this.moveBooks}/>
             )}
         />
 
         <Route
             exact path='/'
             render={() => (
-                <BookList books={this.state.myBooks} moveBooks={this.moveBooks} />
+                <BookList books={this.state.books} moveBooks={this.moveBooks} />
                )}
               />
             }

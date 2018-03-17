@@ -5,14 +5,14 @@ import PropTypes from 'prop-types'
 class BookShelf extends React.Component{
 
     render() {
-        const {myBooks} = this.props
+        const {books} = this.props
 
         return (
               <div className="bookshelf">
                 <h2 className="bookshelf-title">{this.props.title}</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-                        {myBooks.map((book) => (
+                        {books.map((book) => (
                             <Book
                                 book={book}
                                 key={book.id}
@@ -28,7 +28,7 @@ class BookShelf extends React.Component{
 
 BookShelf.PropTypes = {
     shelf: PropTypes.array.isRequired,
-    myBooks: PropTypes.array.isRequired,
+    books: PropTypes.array.isRequired,
     moveBooks: PropTypes.func.isRequired
 }
 

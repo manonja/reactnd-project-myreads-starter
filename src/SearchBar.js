@@ -71,7 +71,7 @@ class SearchBar extends React.Component {
 
 SearchBar.PropTypes = {
     query: PropTypes.string.isRequired,
-    myBooks: PropTypes.array.isRequired,
+    searchResults: PropTypes.array.isRequired,
     moveBooks: PropTypes.func.isRequired
 }
 
