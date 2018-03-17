@@ -7,7 +7,7 @@ import * as BooksAPI from './BooksAPI'
 class SearchBar extends React.Component {
     state = {
         query: '',
-        books: []
+        searchResults: []
     };
 
     //Function checking is there is a query and if so calling Books API to update books
@@ -15,21 +15,21 @@ class SearchBar extends React.Component {
         this.setState({ query })
         //Check if there is a query
        query ?
-           BooksAPI.search(query).then(books => {
-               if (books.length) {
+           BooksAPI.search(query).then(searchResults => {
+               if (searchResults.length) {
                    //Check if any of the search results already exist in the list of books
                    // books.filter(book => mainBooks[book.id] && (book.shelf = mainBooks[book.id].shelf));
-                   this.setState({books});
+                   this.setState({searchResults});
                }
            })
            //If there is not query, set books to empty
            :
-           this.setState({books:[]});
+           this.setState({searchResults:[]});
    };
 
 
     render(){
-        const {books} = this.state;
+        const {searchResults} = this.state;
 
         return (
             <div className="search-books">
@@ -54,7 +54,7 @@ class SearchBar extends React.Component {
 
                 <div className="search-books-results">
                     <ol className="books-grid">
-                    {books.map((book) => (
+                    {searchResults.map((book) => (
                         <Book
                             book={book}
                             key={book.id}
@@ -71,7 +71,7 @@ class SearchBar extends React.Component {
 
 SearchBar.PropTypes = {
     query: PropTypes.string.isRequired,
-    books: PropTypes.array.isRequired,
+    myBooks: PropTypes.array.isRequired,
     moveBooks: PropTypes.func.isRequired
 }
 

@@ -7,11 +7,11 @@ class BookList extends React.Component {
 
 
     render() {
-        const {books} = this.props
+        const {myBooks} = this.props
 
-        let wantToRead = books.filter((book) => book.shelf === 'wantToRead')
-        let currentlyReading = books.filter((book) => book.shelf === 'currentlyReading')
-        let read = books.filter((book) => book.shelf === 'read')
+        let wantToRead = myBooks.filter((book) => book.shelf === 'wantToRead')
+        let currentlyReading = myBooks.filter((book) => book.shelf === 'currentlyReading')
+        let read = myBooks.filter((book) => book.shelf === 'read')
 
         return (
 
@@ -41,7 +41,7 @@ class BookList extends React.Component {
 }
 
 BookList.PropTypes = {
-    books: PropTypes.array.isRequired,
+    myBooks: PropTypes.array.isRequired,
     moveBooks: PropTypes.func.isRequired
 }
 

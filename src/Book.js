@@ -20,15 +20,13 @@ class Book extends React.Component {
   }
 
   handleBookResult = (bookResult) => {
-      const {myBookList} = this.props
-      console.log(this.props)
-      const matched = myBookList.map(book => book.id === bookResult.id);
-      if (bookResult.id !== matched.id) {
-          return matched.shelf
-      } else {
-          return "none"
-      }
-    }
+      console.log(this.props.myBooks)
+      const matched = Object.keys(bookResult).map(book => bookResult.id === this.props.myBooks);
+      console.log(matched)
+  }
+
+
+
 
 
 
@@ -54,6 +52,7 @@ class Book extends React.Component {
 
     render(){
         const {book}=this.props
+        const {myBooks}=this.props
 
         return(
                 <li>
