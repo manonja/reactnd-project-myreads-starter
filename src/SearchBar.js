@@ -2,7 +2,7 @@ import React from 'react'
 import { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Book from "./Book"
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 
 class SearchBar extends React.Component {
@@ -32,7 +32,7 @@ class SearchBar extends React.Component {
                     <Book
                       key={book.id}
                       book={book}
-                      moveBook={this.props.moveBook}
+                      moveBooks={this.props.moveBooks}
                     />
                 ))
             )
@@ -48,12 +48,12 @@ class SearchBar extends React.Component {
                    this.setState({searchResults:[]});
 
                } else {
+                   //set the shelf
                    let newList = results.map((book) => {
                    book.shelf = "none"
-                   for(let i=0; i <this.props.books.length ; i++) {
+                   for(let i=0; i < this.props.books.length ; i++) {
                        if(book.id === this.props.books[i].id) {
                            book.shelf = this.props.books[i].shelf
-                           console.log(book.shelf)
                            break;
                        }
                    }
@@ -92,7 +92,8 @@ class SearchBar extends React.Component {
                   */}
                   <input
                      type="text"
-                     onChange={(event) => this.newQuery(event.target.value)}
+                     onChange={(event) => this.updateQuery(event.target.value)}
+                     value={this.state.query}
                      placeholder="Search by title or author"
                   />
                 </div>
@@ -111,10 +112,10 @@ class SearchBar extends React.Component {
     }
 }
 
-SearchBar.PropTypes = {
-    query: PropTypes.string.isRequired,
-    searchResults: PropTypes.array.isRequired,
-    moveBooks: PropTypes.func.isRequired
-}
+// SearchBar.PropTypes = {
+//     query: PropTypes..isRequired,
+//     searchResults: PropTypes.array.isRequired,
+//     moveBooks: PropTypes.func.isRequired
+// }
 
 export default SearchBar;

@@ -15,7 +15,7 @@ class BooksApp extends React.Component {
   //Adds life cycle event - Fetching infos from BooksApi.js to retrieve books
   componentDidMount() {
       BooksAPI.getAll().then(books => {
-          this.setState({ books })
+          this.setState({ books : books })
       })
   }
 
@@ -27,6 +27,7 @@ class BooksApp extends React.Component {
   */
 
   moveBooks = (bookToMove, shelfValue) => {
+      //check if books has bookToMove
       this.setState(state => {
           //Filter the selected book within books array
           const newShelf = state.books.filter(book => book.id !== bookToMove.id);
@@ -42,6 +43,9 @@ class BooksApp extends React.Component {
 
 
 
+
+
+
   render() {
 
     return (
@@ -49,7 +53,7 @@ class BooksApp extends React.Component {
         <Route
             path='/search'
             render={() => (
-                 <SearchBar books={this.state.books} moveBooks={this.moveBooks}/>
+                 <SearchBar temp_list={this.state.books} moveBooks={this.moveBooks}/>
             )}
         />
 

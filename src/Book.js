@@ -14,9 +14,9 @@ class Book extends React.Component {
 
   handleChange = (e) => {
     // Update UI with book's new shelf value
-    this.props.moveBooks(this.props.book, e.target.value)
+    this.props.moveBooks(this.props.books, e.target.value)
     // Update backend data
-    BooksAPI.update(this.props.book, e.target.value)
+    BooksAPI.update(this.props.books, e.target.value)
   }
 
 
@@ -73,7 +73,6 @@ class Book extends React.Component {
 
 Book.PropTypes = {
     book: PropTypes.array.isRequired,
-    shelf: PropTypes.array.isRequired,
     moveBooks: PropTypes.func.isRequired
 }
 
