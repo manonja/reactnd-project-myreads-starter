@@ -1,4 +1,5 @@
 import React from 'react'
+import { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Book from "./Book"
 import PropTypes from 'prop-types'
@@ -10,26 +11,71 @@ class SearchBar extends React.Component {
         searchResults: []
     };
 
+
+    //Get the property shelf
+    handleBookResult = () => {
+        const {query} = this.state
+        const {searchResults} = this.state
+        //No query or invalid query
+        if( !searchResults.length){
+            return (
+                <div>
+                    <strong>
+                        Please enter a query
+                    </strong>
+                </div>
+            )
+        //Show the results
+        } else {
+            return (
+                searchResults.map((book) => (
+                    <Book
+                      key={book.id}
+                      book={book}
+                      moveBook={this.props.moveBook}
+                    />
+                ))
+            )
+        }
+    }
+
     //Function checking is there is a query and if so calling Books API to update books
     newQuery = (query) => {
-        this.setState({ query })
         //Check if there is a query
-       query ?
-           BooksAPI.search(query).then(searchResults => {
-               if (searchResults.length) {
-                   //Check if any of the search results already exist in the list of books
-                   // books.filter(book => mainBooks[book.id] && (book.shelf = mainBooks[book.id].shelf));
-                   this.setState({searchResults});
-               }
+       if (query) {
+           BooksAPI.search(query).then(results => {
+               if(!results) {
+                   this.setState({searchResults:[]});
+
+               } else {
+                   let newList = results.map((book) => {
+                   book.shelf = "none"
+                   for(let i=0; i <this.props.books.length ; i++) {
+                       if(book.id === this.props.books[i].id) {
+                           book.shelf = this.props.books[i].shelf
+                           console.log(book.shelf)
+                           break;
+                       }
+                   }
+               return book
            })
-           //If there is not query, set books to empty
-           :
-           this.setState({searchResults:[]});
-   };
+               this.setState({searchResults: newList})
+           }
+
+           }).catch(err => console.log(err, 'error occured'))
+       }}
+
+
+
+
+   //Update each state
+   updateQuery = (query) => {
+       this.setState({query:query})
+       this.newQuery(query)
+   }
 
 
     render(){
-        const {searchResults} = this.state;
 
         return (
             <div className="search-books">
@@ -54,13 +100,9 @@ class SearchBar extends React.Component {
 
                 <div className="search-books-results">
                     <ol className="books-grid">
-                    {searchResults.map((book) => (
-                        <Book
-                            book={book}
-                            key={book.id}
-                            moveBooks={this.props.moveBooks}
-                        />
-                    ))}
+                    {
+                        this.handleBookResult()
+                    }
                     </ol>
                 </div>
 
