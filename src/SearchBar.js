@@ -5,19 +5,20 @@ import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 
 class SearchBar extends React.Component {
-
     state = {
         query: '',
         books: []
     };
 
-
+    //Function checking is there is a query and if so calling Books API to update books
     newQuery = (query) => {
         this.setState({ query })
         //Check if there is a query
        query ?
            BooksAPI.search(query).then(books => {
                if (books.length) {
+                   //Check if any of the search results already exist in the list of books
+                   // books.filter(book => mainBooks[book.id] && (book.shelf = mainBooks[book.id].shelf));
                    this.setState({books});
                }
            })

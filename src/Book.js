@@ -19,17 +19,18 @@ class Book extends React.Component {
     BooksAPI.update(this.props.book, e.target.value)
   }
 
-  // //Premark shelves on search page
-  // setShelf = (searchResult) => {
-  //     const defaultValue = 'None'
-  //     if (searchResult.shelf === undefined){
-  //         const filtered = searchResult.filter(book => book.id === searchResult.id)
-  //         return filtered.shelf
-  //     } else {
-  //         return searchResult.shelf
-  //     }
-  //
-  // }
+  handleBookResult = (bookResult) => {
+      const {myBookList} = this.props
+      console.log(this.props)
+      const matched = myBookList.map(book => book.id === bookResult.id);
+      if (bookResult.id !== matched.id) {
+          return matched.shelf
+      } else {
+          return "none"
+      }
+    }
+
+
 
   //Error handling in case book doesn't have thumbnails
   handleThumbnail = (book) => {
@@ -65,7 +66,7 @@ class Book extends React.Component {
                             backgroundImage: `url(${this.handleThumbnail(book)})`}}>
                       </div>
                       <div className="book-shelf-changer">
-                        <select defaultValue={book.shelf} onChange={this.handleChange}>
+                        <select defaultValue={this.handleBookResult(book)} onChange={this.handleChange}>
                           <option value="none" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
