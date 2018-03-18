@@ -58,7 +58,7 @@ class BooksApp extends React.Component {
                 <BookList books={this.state.books} moveBooks={this.moveBooks} />
                )}
               />
-            }
+            
       </div>
     )
   }
