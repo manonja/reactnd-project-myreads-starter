@@ -27,18 +27,24 @@ class BooksApp extends React.Component {
   */
 
   moveBooks = (bookToMove, shelfValue) => {
-      //check if books has bookToMove
-      this.setState(state => {
-          //Filter the selected book within books array
-          const newShelf = state.books.filter(book => book.id !== bookToMove.id);
-          //Update shelf value
-          bookToMove.shelf = shelfValue
-          //Returns a new array with new book and shelf values
-          return {
-              books: newShelf.concat(bookToMove)
-          }
-      });
-       BooksAPI.update(bookToMove, shelfValue);
+      // Check if the current state includes bookToMove
+      if(this.state.books.includes(bookToMove)) {
+          let tempList = this.state.books
+          // Find the same bookToMove and set the value to the corresponding shelf
+          tempList[tempList.indexOf(bookToMove)].shelf = shelfValue
+          // Update the state of books
+          BooksAPI.update(bookToMove, shelfValue).then(response => {
+              console.log(response)
+          })
+          this.setState({books : tempList})
+      // If the current state doesn't include bookToMove, set the state to books
+      } else {
+          BooksAPI.update(bookToMove, shelfValue).then(response => {
+              BooksAPI.getAll().then((books) => {
+                  this.setState({books:books})
+              })
+          })
+      }
   };
 
   render() {
@@ -48,7 +54,7 @@ class BooksApp extends React.Component {
         <Route
             path='/search'
             render={() => (
-                 <SearchBar books={this.state.books} moveBooks={this.moveBooks}/>
+                 <SearchBar tempList={this.state.books} moveBooks={this.moveBooks}/>
             )}
         />
 
@@ -58,7 +64,7 @@ class BooksApp extends React.Component {
                 <BookList books={this.state.books} moveBooks={this.moveBooks} />
                )}
               />
-            
+
       </div>
     )
   }
