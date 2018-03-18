@@ -56,9 +56,9 @@ class SearchBar extends React.Component {
                    //loop over this.props.books in main. If the book id from the result
                    //is the same as the book id from this.props.books in main,
                    //then set shelf value to the book id in the search results
-                   for(let i=0; i < this.props.books.length ; i++) {
-                       if(book.id === this.props.books[i].id) {
-                           book.shelf = this.props.books[i].shelf
+                   for(let i=0; i < this.props.book.length ; i++) {
+                       if(book.id === this.props.book[i].id) {
+                           book.shelf = this.props.book[i].shelf
                            break;
                        }
                    }
