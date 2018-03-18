@@ -1,5 +1,4 @@
 import React from 'react'
-import { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Book from "./Book"
 import PropTypes from 'prop-types'
@@ -11,31 +10,22 @@ class SearchBar extends React.Component {
         searchResults: []
     };
 
+    /**
+     * Handle search result. If the query is not empty or valid,
+     * map over searchResults and render the Book component.
+    */
+    handleSearchResult = () => {
+        const {query, searchResults} = this.state
 
-    //Get the property shelf
-    handleBookResult = () => {
-        const {query} = this.state
-        const {searchResults} = this.state
-        //If the query is invalid, ask the user to do a new research
         if( query === ''){
             return (
-                <div>
-                    <strong>
-                        Please enter a research
-                    </strong>
-                </div>
+                <div>Please enter a research</div>
             )
-        //If the query is valid, map over searchResults and render the results
-    } else if (!searchResults.length){
-        return (
-            <div>
-                <strong>
-                    Please enter a valid research
-                </strong>
-            </div>
-        )
-
-    } else {
+        } else if (!searchResults.length){
+            return (
+                <div>Please enter a valid research</div>
+            )
+        } else {
             return (
                 searchResults.map((book) => (
                     <Book
@@ -48,49 +38,54 @@ class SearchBar extends React.Component {
         }
     }
 
-    //Check if there is a query. If so, check if books from search exist in books
-    //from main. If
+    /**
+     * Check if there is a query. If so, call search API and check if books from the search query
+     * Already exist in my list of books in main.
+     * If the book already exist, set the shelf value in results to the shelf value in main.
+     * @param {Object} query -
+    */
     newQuery = (query) => {
-        //Check if there is a query
+        // If there is a query, call search API
+        // If no results, set searchResults to empty
+        // Else map over results and check if the book already exists in the main page
+        // If the book already exist, set the shelf value in results to the shelf value in main.
        if (query) {
            BooksAPI.search(query).then(results => {
                if(!results) {
                    this.setState({searchResults:[]});
 
                } else {
-                   //map over the results we got from the query
-                   let newList = results.map((book) => {
-                   //set the shelf value to "none"
-                   book.shelf = "none"
-                   //loop over this.props.books in main. If the book id from the result
-                   //is the same as the book id from this.props.books in main,
+                   let checkedResults = results.map((book) => {
+                       book.shelf = "none"
+                   //loop over myBookList in main. If the book id from the result
+                   //is the same as the book id from main,
                    //then set shelf value to the book id in the search results
-                   for(let i=0; i < this.props.tempList.length ; i++) {
-                       if(book.id === this.props.tempList[i].id) {
-                           book.shelf = this.props.tempList[i].shelf
+                   for(let i=0; i < this.props.checkBookList.length ; i++) {
+                       if(book.id === this.props.checkBookList[i].id) {
+                           book.shelf = this.props.checkBookList[i].shelf
                            break;
                        }
                    }
                return book
            })
                //update searchResults after checking for shelves values
-               this.setState({searchResults: newList})
+               this.setState({searchResults: checkedResults})
            }
 
            }).catch(err => console.log(err, 'error occured'))
        }}
 
-
-
-
-   //Update each state so we can render update results in search
+   /**
+    * Update query when we do a new research.
+    * @param {Object} query - user search
+   */
    updateQuery = (query) => {
        this.setState({query:query})
        this.newQuery(query)
    }
 
-
     render(){
+        const {query} = this.state
 
         return (
             <div className="search-books">
@@ -107,8 +102,8 @@ class SearchBar extends React.Component {
                   */}
                   <input
                      type="text"
-                     onChange={(event=> this.updateQuery(event.target.value))}
-                     value={this.state.query}
+                     onChange={(e => this.updateQuery(e.target.value))}
+                     value={query}
                      placeholder="Search by title or author"
                   />
                 </div>
@@ -117,7 +112,7 @@ class SearchBar extends React.Component {
                 <div className="search-books-results">
                     <ol className="books-grid">
                     {
-                        this.handleBookResult()
+                        this.handleSearchResult()
                     }
                     </ol>
                 </div>
@@ -130,6 +125,9 @@ class SearchBar extends React.Component {
 SearchBar.PropTypes = {
     query: PropTypes.string.isRequired,
     searchResults: PropTypes.array.isRequired,
+    handleSearchResult: PropTypes.func.isRequired,
+    newQuery: PropTypes.func.isRequired,
+    updateQuery: PropTypes.func.isRequired,
     moveBooks: PropTypes.func.isRequired
 }
 

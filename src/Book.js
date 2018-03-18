@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import * as BooksAPI from './BooksAPI'
 
 
 class Book extends React.Component {
@@ -38,7 +37,7 @@ class Book extends React.Component {
                             backgroundImage: `url(${this.handleThumbnail(book)})`}}>
                       </div>
                       <div className="book-shelf-changer">
-                        <select defaultValue={this.props.book.shelf} onChange={(event) => this.props.moveBooks(this.props.book, event.target.value)}>
+                        <select defaultValue={this.props.book.shelf} onChange={(e) => this.props.moveBooks(book, e.target.value)}>
                           <option value="None" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>

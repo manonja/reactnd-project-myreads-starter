@@ -12,7 +12,9 @@ class BooksApp extends React.Component {
     myBookList: [],
 }
 
-  //Adds life cycle event - Fetching infos from BooksApi.js to retrieve books
+  /**
+  * Adds life cycle event - Fetches infos from BooksApi.js to retrieve books
+  */
   componentDidMount() {
       BooksAPI.getAll().then(books => {
           this.setState({ myBookList : books })
@@ -20,27 +22,25 @@ class BooksApp extends React.Component {
   }
 
   /**
+   * Function by @jatin11gidwani udacity slack channel
    * Move books from shelves and setState of myBookList with accurate shelves values.
    * If the current state of myBookList includes bookToMove, set myBookList to a
    * new variable with the accurate shelves values
    * @param {object} bookToMove - The book.id to move to another shelf
    * @param {object} shelfValue - The shelf 's target value where the book needs to move to.
   */
-
   moveBooks = (bookToMove, shelfValue) => {
       // Check if the current state includes bookToMove
       if(this.state.myBookList.includes(bookToMove)) {
-          // Creates a variable storing the state of books
-          let checkBookList = this.state.books
-          // Find the same bookToMove and set the value to the corresponding shelf
+          // Creates a variable storing the current state myBookList
+          let checkBookList = this.state.myBookList
+          // Find bookToMove in checkBookList and set its value to the corresponding shelf
           checkBookList[checkBookList.indexOf(bookToMove)].shelf = shelfValue
           // Update the state of books
-          BooksAPI.update(bookToMove, shelfValue).then(response => {
-              console.log(response)
-          })
+          BooksAPI.update(bookToMove, shelfValue).then(response => {})
           // Update the state of myBookList with accurate shelves
           this.setState({myBookList : checkBookList})
-      // Updates the database with current state of books
+      // Update the database with current state of books
       } else {
           BooksAPI.update(bookToMove, shelfValue).then(response => {
               BooksAPI.getAll().then((books) => {
