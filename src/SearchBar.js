@@ -11,34 +11,6 @@ class SearchBar extends React.Component {
     };
 
     /**
-     * Handle search result. If the query is not empty or valid,
-     * map over searchResults and render the Book component.
-    */
-    handleSearchResult = () => {
-        const {query, searchResults} = this.state
-
-        if( query === ''){
-            return (
-                <div>Please enter a research</div>
-            )
-        } else if (!searchResults.length){
-            return (
-                <div>Please enter a valid research</div>
-            )
-        } else {
-            return (
-                searchResults.map((book) => (
-                    <Book
-                      key={book.id}
-                      book={book}
-                      moveBooks={this.props.moveBooks}
-                    />
-                ))
-            )
-        }
-    }
-
-    /**
      * Check if there is a query. If so, call search API and check if books from the search query
      * Already exist in my list of books in main.
      * If the book already exist, set the shelf value in results to the shelf value in main.
@@ -85,7 +57,7 @@ class SearchBar extends React.Component {
    }
 
     render(){
-        const {query} = this.state
+        const {query, searchResults} = this.state
 
         return (
             <div className="search-books">
@@ -108,14 +80,21 @@ class SearchBar extends React.Component {
                   />
                 </div>
               </div>
-
+              {
+                  searchResults !== undefined &&
                 <div className="search-books-results">
                     <ol className="books-grid">
                     {
-                        this.handleSearchResult()
-                    }
+                        this.state.searchResults.map(book => (
+                            <Book
+                              key={book.id}
+                              book={book}
+                              moveBooks={this.props.moveBooks}
+                            />
+                        ))}
                     </ol>
                 </div>
+                    }
 
             </div>
         );
