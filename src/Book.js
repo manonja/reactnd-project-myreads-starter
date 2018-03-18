@@ -4,22 +4,6 @@ import * as BooksAPI from './BooksAPI'
 
 
 class Book extends React.Component {
-    //handleEvent function - Source: https://reactjs.org/docs/handling-events.html
-    constructor(props) {
-    super(props);
-
-    // This binding is necessary to make `this` work in the callback
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange = (e) => {
-    // Update UI with book's new shelf value
-    this.props.moveBooks(this.props.books, e.target.value)
-    // Update backend data
-    BooksAPI.update(this.props.books, e.target.value)
-  }
-
-
   //Error handling in case book doesn't have thumbnails
   handleThumbnail = (book) => {
       //Check if book have thumbnail
@@ -54,7 +38,7 @@ class Book extends React.Component {
                             backgroundImage: `url(${this.handleThumbnail(book)})`}}>
                       </div>
                       <div className="book-shelf-changer">
-                        <select defaultValue={this.props.book.shelf} onChange={this.handleChange}>
+                        <select defaultValue={this.props.book.shelf} onChange={(event) => this.props.moveBook(this.props.book, event.target.value)}>
                           <option value="None" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
