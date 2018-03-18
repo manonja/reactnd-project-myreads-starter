@@ -43,7 +43,7 @@ class SearchBar extends React.Component {
                //update searchResults after checking for shelves values
                this.setState({searchResults: checkedResults})
            }
-
+           // catch error if invalid query
            }).catch(err => console.log(err, 'error occured'))
        }}
 
