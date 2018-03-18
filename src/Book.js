@@ -1,5 +1,5 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 
 
@@ -55,9 +55,9 @@ class Book extends React.Component {
     }
 }
 
-// Book.PropTypes = {
-//     book: PropTypes.array.isRequired,
-//     moveBooks: PropTypes.func.isRequired
-// }
+Book.PropTypes = {
+    book: PropTypes.array.isRequired,
+    moveBooks: PropTypes.func.isRequired
+}
 
 export default Book;
