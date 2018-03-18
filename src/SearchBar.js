@@ -65,9 +65,9 @@ class SearchBar extends React.Component {
                    //loop over this.props.books in main. If the book id from the result
                    //is the same as the book id from this.props.books in main,
                    //then set shelf value to the book id in the search results
-                   for(let i=0; i < this.props.book.length ; i++) {
-                       if(book.id === this.props.book[i].id) {
-                           book.shelf = this.props.book[i].shelf
+                   for(let i=0; i < this.props.tempList.length ; i++) {
+                       if(book.id === this.props.tempList[i].id) {
+                           book.shelf = this.props.tempList[i].shelf
                            break;
                        }
                    }
@@ -107,7 +107,7 @@ class SearchBar extends React.Component {
                   */}
                   <input
                      type="text"
-                     onChange={(event) => this.updateQuery(event.target.value)}
+                     onChange={(event=> this.updateQuery(event.target.value))}
                      value={this.state.query}
                      placeholder="Search by title or author"
                   />
