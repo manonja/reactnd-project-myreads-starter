@@ -17,16 +17,25 @@ class SearchBar extends React.Component {
         const {query} = this.state
         const {searchResults} = this.state
         //If the query is invalid, ask the user to do a new research
-        if( !searchResults.length){
+        if( query === ''){
             return (
                 <div>
                     <strong>
-                        Do another research
+                        Please enter a research
                     </strong>
                 </div>
             )
         //If the query is valid, map over searchResults and render the results
-        } else {
+    } else if (!searchResults.length){
+        return (
+            <div>
+                <strong>
+                    Please enter a valid research
+                </strong>
+            </div>
+        )
+
+    } else {
             return (
                 searchResults.map((book) => (
                     <Book
