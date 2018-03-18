@@ -27,7 +27,6 @@ class BookShelf extends React.Component{
 }
 
 BookShelf.PropTypes = {
-    shelf: PropTypes.array.isRequired,
     books: PropTypes.array.isRequired,
     moveBooks: PropTypes.func.isRequired
 }
